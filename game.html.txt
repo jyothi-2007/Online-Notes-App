@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <style>
+      body{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        height:100vh;
+        font-family: Arial, sans-serif;
+      }
+      .box{
+        width:100px;
+        height: 100px;
+        background-color:red;
+        border-radius: 50%;
+        position:absolute;
+      }
+      #scoreboard, #timer{
+        margin:10px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scoreboard">Score: 0</div>
+    <div id="timer">Time: 30s</div>
+    <div class="box" onclick="changeposition()"></div>
+
+    <script>
+      let score = 0;
+      let time = 30; // seconds
+      const box = document.querySelector(".box");
+      const scoreDisplay = document.getElementById("scoreboard");
+      const timerDisplay = document.getElementById("timer");
+
+      // Timer countdown
+      const countdown = setInterval(() => {
+        time--;
+        timerDisplay.textContent = "Time: " + time + "s";
+        if(time <= 0){
+          clearInterval(countdown);
+          box.style.display = "none";
+          alert("Time's up! Your score: " + score);
+        }
+      }, 1000);
+
+      function changeposition(){
+        if(time <= 0) return; // stop after time ends
+        score++;
+        scoreDisplay.textContent = "Score: " + score;
+        let x = Math.random() * (window.innerWidth - 100);
+        let y = Math.random() * (window.innerHeight - 100);
+        box.style.left = x + "px";
+        box.style.top = y + "px";
+      }
+    </script>
+  </body>
+</html>
